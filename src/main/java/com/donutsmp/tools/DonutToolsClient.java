@@ -9,9 +9,9 @@ import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.Level;
+import org.lwjgl.glfw.GLFW;
 
 public class DonutToolsClient implements ClientModInitializer {
 
@@ -33,7 +33,7 @@ public class DonutToolsClient implements ClientModInitializer {
             new KeyMapping(
                 "key.donutsmp.open_menu",
                 InputConstants.Type.KEYSYM,
-                InputConstants.KEY_RIGHT_SHIFT,
+                GLFW.GLFW_KEY_RIGHT_SHIFT,
                 category
             )
         );
@@ -51,21 +51,27 @@ public class DonutToolsClient implements ClientModInitializer {
 
                 Minecraft mc = Minecraft.getInstance();
 
-                if (mc.player == null || mc.level == null || mc.screen != null) return;
+                if (mc.player == null || mc.level == null || mc.screen != null) {
+                    return;
+                }
 
                 int y = 8;
 
                 if (showCoords) {
-                    graphics.text(mc.font,
+                    graphics.text(
+                        mc.font,
                         "XYZ: " + mc.player.blockPosition(),
-                        8, y, 0xFFFFFF, true);
+                        8, y, 0xFFFFFF, true
+                    );
                     y += 12;
                 }
 
                 if (showName) {
-                    graphics.text(mc.font,
+                    graphics.text(
+                        mc.font,
                         "Name: " + mc.player.getName().getString(),
-                        8, y, 0xFFFFFF, true);
+                        8, y, 0xFFFFFF, true
+                    );
                     y += 12;
                 }
 
@@ -73,9 +79,11 @@ public class DonutToolsClient implements ClientModInitializer {
                     var server = mc.getCurrentServer();
                     String ip = server == null ? "Singleplayer" : server.ip;
 
-                    graphics.text(mc.font,
+                    graphics.text(
+                        mc.font,
                         "Server: " + ip,
-                        8, y, 0xFFFFFF, true);
+                        8, y, 0xFFFFFF, true
+                    );
                     y += 12;
                 }
 
@@ -91,9 +99,11 @@ public class DonutToolsClient implements ClientModInitializer {
                         z /= 8;
                     }
 
-                    graphics.text(mc.font,
-                        "Nether: " + (int)x + ", " + (int)z,
-                        8, y, 0xFFFFFF, true);
+                    graphics.text(
+                        mc.font,
+                        "Nether: " + (int) x + ", " + (int) z,
+                        8, y, 0xFFFFFF, true
+                    );
                 }
             }
         );
