@@ -6,7 +6,6 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.Identifier;
@@ -44,8 +43,7 @@ public class DonutToolsClient implements ClientModInitializer {
             }
         });
 
-        HudElementRegistry.attachElementBefore(
-            VanillaHudElements.CHAT,
+        HudElementRegistry.addLast(
             Identifier.fromNamespaceAndPath("donutsmp", "info"),
             (graphics, delta) -> {
 
